@@ -2,15 +2,17 @@ import React from "react";
 
 const Card = () => {
   return (
-    <div className="max-w-xs w-[300px] mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="mt-5 max-w-xs w-[300px] mx-auto bg-white border-black border-[1px] rounded-[5px] overflow-hidden">
       {/* Image */}
-      <div className="relative">
-        <img
-          className="w-full h-50 object-cover object-center"
-          src="https://via.placeholder.com/270x160"
-          alt="Product"
-        />
-      </div>
+      <div className="flex items-center justify-center h-40">
+  <img
+    className="w-full h-full object-cover"
+    src="https://via.placeholder.com/270x160"
+    alt="Product"
+    style={{ maxWidth: "95%", maxHeight: "90%" }}
+  />
+</div>
+
 
       {/* Paisa */}
       <div className="px-4 py-2">
