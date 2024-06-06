@@ -1,7 +1,43 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { FirebaseContext } from "../store/Context.jsx";
 import olx from "../assets/olx.png";
+import { toast } from "react-toastify";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = ({ setregisterPop, setLoginPop }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { app } = useContext(FirebaseContext);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const auth = getAuth(app);
+    console.log(email);
+    console.log(password);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        toast.success("Sign-in successful!");
+        setLoginPop(false);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error("Error signing in:", errorCode, errorMessage);
+        let toastMessage = "Sign-in failed. Please check your credentials.";
+        switch (errorCode) {
+          case "auth/wrong-password":
+            toastMessage = "Invalid email or password.";
+            break;
+          case "auth/user-not-found":
+            toastMessage = "Email not found.";
+            break;
+          default:
+        }
+        toast.error(toastMessage);
+      });
+  };
+
   return (
     <div
       className="relative z-10"
@@ -14,8 +50,13 @@ const Login = ({ setregisterPop, setLoginPop }) => {
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div className="relative transform overflow-hidden text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm">
-          <div className="absolute top-0 right-0 p-2">
-              <button onClick={() => {setLoginPop(false)}} className="text-black text-[250x] py-1 px-3">
+            <div className="absolute top-0 right-0 p-2">
+              <button
+                onClick={() => {
+                  setLoginPop(false);
+                }}
+                className="text-black text-[250x] py-1 px-3"
+              >
                 X
               </button>
             </div>
@@ -30,7 +71,10 @@ const Login = ({ setregisterPop, setLoginPop }) => {
                       Enter your email to login
                     </h1>
                     <div className="flex flex-col items-center justify-center">
-                      <form className="bg-white p-6 w-full max-w-sm">
+                      <form
+                        onSubmit={handleLogin}
+                        className="bg-white p-6 w-full max-w-sm"
+                      >
                         <div className="mb-4">
                           <label
                             htmlFor="email"
@@ -41,6 +85,8 @@ const Login = ({ setregisterPop, setLoginPop }) => {
                           <input
                             type="email"
                             id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             placeholder="Enter your email"
                           />
@@ -56,6 +102,8 @@ const Login = ({ setregisterPop, setLoginPop }) => {
                           <input
                             type="password"
                             id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             placeholder="Enter your password"
                           />

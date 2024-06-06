@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import olx from "../assets/olx.png";
 import lens from "../assets/lens.png";
 import arrow from "../assets/arrow.png";
@@ -6,8 +6,13 @@ import Login from "./Login";
 import Signup from "./Signup";
 import { IoSearch } from "react-icons/io5";
 import Sell from "./Sell";
+import {AuthContext, FirebaseContext} from '../../src/store/Context'
+import { toast } from "react-toastify";
+import './Navbar.css'
 
 const Navbar = () => {
+  const {user} = useContext(AuthContext)
+  const {auth} = useContext(FirebaseContext)
   const [loginPop, setLoginPop] = useState(false);
   const [registerPop, setregisterPop] = useState(false);
   const [sell, setSell] = useState(false);
@@ -42,20 +47,32 @@ const Navbar = () => {
           onClick={() => setLoginPop(!loginPop)}
           className="flex h-12 p-3  cursor-pointer underline hover:no-underline"
         >
-          <h1 className="font-bold text-lg">Login</h1>
+          <h1 className="font-bold text-lg">{user ? user.displayName : 'Login'}</h1>
+
         </div>
+
+        <div
+          className="flex h-12 p-3  cursor-pointer "
+        >
+          {user && <h1 onClick={() => {
+            auth.signOut()
+            toast.success("User Loggout")
+          }} className="font-bold text-md">Logout</h1>}
+
+        </div>
+          
 
         {/* <div className=' flex   cursor-pointer ml-5 w-auto rounded-full border border-yellow-500'> */}
         <div
           onClick={() => setSell(!sell)}
-          className="right-0 font-bold text-sm rounded-full px-4 py-3 border flex cursor-pointer border-yellow-500 my-auto"
+          className="sell-button right-0 font-bold text-sm rounded-full px-4 py-3 border flex cursor-pointer border-yellow-500 my-auto"
         >
           +SELL
         </div>
         {/* </div> */}
       </div>
-        {/* second nav */}
-      <div className="bg-white shadow-md">
+      {/* second nav */}
+      <div className="bg-white shadow-md w-full text-sm">
         <div className="container mx-auto px-4">
           <nav className="flex items-center justify-center h-16">
             <ul className="flex items-center space-x-5">
