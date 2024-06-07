@@ -41,14 +41,17 @@ const Main = () => {
           <Navbar />
           <Banner />
 
-          {products.length > 0 ? (<div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto max-w-[1300px] max-sm:grid-cols-1  xl:grid-cols-4">
-            {products.map((product, index) => (
-              <Card key={product.id} product={product} />
-            ))}
-          </div>
-) : <div className="mx-auto flex items-center text-sm text-gray-400 justify-center h-[400px] max-w-[1300px]">
-  No products found
-  </div>}
+          {products.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto max-w-[1300px] max-sm:grid-cols-1  xl:grid-cols-4">
+              {products.map((product, index) => (
+                <Card key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="mx-auto flex items-center text-sm text-gray-400 justify-center h-[400px] max-w-[1300px]">
+              No products found
+            </div>
+          )}
           <Footer />
         </div>
       )}

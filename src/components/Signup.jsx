@@ -1,13 +1,12 @@
 import React, { useState, useContext } from "react";
 import olx from "../assets/olx.png";
 import { FirebaseError } from "firebase/app";
-import { FirebaseContext } from '../store/Context.jsx';
-import { auth, db } from '/src/firebase/config.js';
+import { FirebaseContext } from "../store/Context.jsx";
+import { auth, db } from "/src/firebase/config.js";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
 
 const Signup = ({ setregisterPop, setLoginPop }) => {
   const history = useNavigate();
@@ -20,32 +19,43 @@ const Signup = ({ setregisterPop, setLoginPop }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(username.trim()!='' && email.trim()!='' && password.trim()!='' && number.trim()!='' && number.length == 10 && username.length > 3 && password.length > 5){
+    if (
+      username.trim() != "" &&
+      email.trim() != "" &&
+      password.trim() != "" &&
+      number.trim() != "" &&
+      number.length == 10 &&
+      username.length > 3 &&
+      password.length > 5
+    ) {
       createUserWithEmailAndPassword(auth, email, password)
-      .then((result) => {
-        return updateProfile(result.user, { displayName: username }).then(() => {
-          const firestore = getFirestore(app); // Get Firestore instance
-          addDoc(collection(firestore, 'users'), { // Add user data to 'users' collection
-            id: result.user.uid,
-            username: username,
-            number: number
-          }).then(() => {
-            toast.success('user registered successfully')
-            setregisterPop(false)
-            setLoginPop(true)
-          })
+        .then((result) => {
+          return updateProfile(result.user, { displayName: username }).then(
+            () => {
+              const firestore = getFirestore(app); // Get Firestore instance
+              addDoc(collection(firestore, "users"), {
+                // Add user data to 'users' collection
+                id: result.user.uid,
+                username: username,
+                number: number,
+              }).then(() => {
+                toast.success("user registered successfully");
+                setregisterPop(false);
+                setLoginPop(true);
+              });
+            }
+          );
+        })
+        .then(() => {
+          console.log("User profile updated");
+        })
+        .catch((error) => {
+          console.error("Error creating user:", error);
         });
-      })
-      .then(() => {
-        console.log('User profile updated');
-      })
-      .catch((error) => {
-        console.error('Error creating user:', error);
-      });
-    }else{
-      toast.error('Check your given credentials')
+    } else {
+      toast.error("Check your given credentials");
     }
-  }
+  };
 
   return (
     <div
@@ -80,7 +90,10 @@ const Signup = ({ setregisterPop, setLoginPop }) => {
                       Enter your details here
                     </h1>
                     <div className="flex flex-col items-center justify-center">
-                      <form onSubmit={handleSubmit} className="bg-white p-6 w-full max-w-sm">
+                      <form
+                        onSubmit={handleSubmit}
+                        className="bg-white p-6 w-full max-w-sm"
+                      >
                         <div className="mb-4">
                           <label
                             htmlFor="username"

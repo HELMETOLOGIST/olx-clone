@@ -1,10 +1,10 @@
-.sell-button{
-    border:7px solid !important;
-    border-top-color:rgb(6, 237, 210) !important;
-    border-bottom-color:rgb(42, 133, 245) !important;
-    border-left-color: rgb(254, 186, 78) !important;
-    border-right-color: rgb(254, 186, 78) !important;
-    border-radius: 40px !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
+.sell-button {
+  border: 7px solid !important;
+  border-top-color: rgb(6, 237, 210) !important;
+  border-bottom-color: rgb(42, 133, 245) !important;
+  border-left-color: rgb(254, 186, 78) !important;
+  border-right-color: rgb(254, 186, 78) !important;
+  border-radius: 40px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
 }

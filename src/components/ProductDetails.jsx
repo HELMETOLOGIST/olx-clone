@@ -7,16 +7,16 @@ import Footer from "./Footer";
 
 function ProductDetails() {
   const [detail, setDetail] = useState("");
-  const [products, setProducts] = useState({})
+  const [products, setProducts] = useState({});
   const location = useLocation();
   const { product } = location.state;
   useEffect(() => {
     setProducts(product);
-  },[])
+  }, []);
   console.log(product);
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div className="w-full py-4 xl:h-[750px] h-[1300px] grid xl:flex md:justify-center  bg-gray-200">
         <div className=" lg:w-[830px]   h-[670px] rounded-md">
           <img
@@ -44,27 +44,10 @@ function ProductDetails() {
                 <IoMdHeartEmpty size={24} className="ml-2" />
               </span>
             </div>
-            <div className='px-2 py-2 border border-black cursor-pointer flex justify-center font-bold mt-10 rounded-md'>Chat with Seller</div>
+            <div className="px-2 py-2 border border-black cursor-pointer flex justify-center font-bold mt-10 rounded-md">
+              Chat with Seller
+            </div>
           </div>
-          {/* <div className='h-[160px]  border bg-white   rounded-md mt-4  flex flex-col justify-between p-4'>
-        <div className='flex items-center'>
-          <img className='w-[45px] rounded-[100px]' src={avtar} alt="" />
-          <span className='ml-2 font-bold w-full'>{sellerDetail.username}</span>
-
-        </div>
-        <span className='font-semibold text-sm'>Email: {sellerDetail.email}</span>
-        <div className='px-2 py-2 border border-black cursor-pointer flex justify-center font-bold mt-1 rounded-md'>Chat with Seller</div>
-        </div> */}
-
-          {/* <div className=" h-[100px] border bg-white   rounded-md mt-4  p-4">
-            <div className="font-bold text-2xl">
-              <span>Posted In</span>
-            </div>
-            <div className="text-xs mt-4">
-              <span>{detail.location}</span>{" "}
-              <span className="float-right">{detail.date}</span>
-            </div>
-          </div> */}
         </div>
       </div>
       <Footer />

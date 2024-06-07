@@ -6,13 +6,13 @@ import Login from "./Login";
 import Signup from "./Signup";
 import { IoSearch } from "react-icons/io5";
 import Sell from "./Sell";
-import {AuthContext, FirebaseContext} from '../../src/store/Context'
+import { AuthContext, FirebaseContext } from "../../src/store/Context";
 import { toast } from "react-toastify";
-import './Navbar.css'
+import "./Navbar.css";
 
 const Navbar = () => {
-  const {user} = useContext(AuthContext)
-  const {auth} = useContext(FirebaseContext)
+  const { user } = useContext(AuthContext);
+  const { auth } = useContext(FirebaseContext);
   const [loginPop, setLoginPop] = useState(false);
   const [registerPop, setregisterPop] = useState(false);
   const [sell, setSell] = useState(false);
@@ -47,20 +47,24 @@ const Navbar = () => {
           onClick={() => setLoginPop(!loginPop)}
           className="flex h-12 p-3  cursor-pointer underline hover:no-underline"
         >
-          <h1 className="font-bold text-lg">{user ? user.displayName : 'Login'}</h1>
-
+          <h1 className="font-bold text-lg">
+            {user ? user.displayName : "Login"}
+          </h1>
         </div>
 
-        <div
-          className="flex h-12 p-3  cursor-pointer "
-        >
-          {user && <h1 onClick={() => {
-            auth.signOut()
-            toast.success("User Loggout")
-          }} className="font-bold text-md">Logout</h1>}
-
+        <div className="flex h-12 p-3  cursor-pointer ">
+          {user && (
+            <h1
+              onClick={() => {
+                auth.signOut();
+                toast.success("User Loggout");
+              }}
+              className="font-bold text-md"
+            >
+              Logout
+            </h1>
+          )}
         </div>
-          
 
         {/* <div className=' flex   cursor-pointer ml-5 w-auto rounded-full border border-yellow-500'> */}
         <div

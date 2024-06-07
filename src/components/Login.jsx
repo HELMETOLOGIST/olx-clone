@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = ({ setregisterPop, setLoginPop }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { app } = useContext(FirebaseContext);
 
   const handleLogin = (e) => {

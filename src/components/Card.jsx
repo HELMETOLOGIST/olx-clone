@@ -1,15 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Card = ({product}) => {
-  const navigate = useNavigate()
+const Card = ({ product }) => {
+  const navigate = useNavigate();
   return (
-    <div onClick={() => navigate('productdetails', {
-      state:{
-        product: product
+    <div
+      onClick={() =>
+        navigate("productdetails", {
+          state: {
+            product: product,
+          },
+        })
       }
-    }) }
-     className="mt-5 max-w-xs w-[300px] mx-auto shadow-md bg-slate-50 border-gray-800 border-[1px] border-opacity-20 rounded-[5px] overflow-hidden">
+      className="mt-5 max-w-xs w-[300px] mx-auto shadow-md bg-slate-50 border-gray-800 border-[1px] border-opacity-20 rounded-[5px] overflow-hidden"
+    >
       {/* Image */}
       <div className="flex items-center justify-center h-40">
         <img
@@ -32,9 +36,7 @@ const Card = ({product}) => {
 
       {/* Description */}
       <div className="px-4 pb-2">
-        <p className="text-gray-700 text-base">
-          {product.description}
-        </p>
+        <p className="text-gray-700 text-base">{product.description}</p>
       </div>
     </div>
   );
